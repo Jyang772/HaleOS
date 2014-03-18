@@ -12,7 +12,7 @@ Simple x64 bit operating system
 Operating System From Scratch
 -----------------------------
 
-Step 01: A smallest "OS"
+Step 01: Build
 ````````````````````````
 
 Let's begin with a simplest boot sector. You'll see how easy it is to get started!
