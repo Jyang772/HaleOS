@@ -9,7 +9,7 @@ Simple x64 bit operating system
 
 
 
-Operating System From ~~Scratch~~ Australia
+Operating System From <del>Scratch</del> Australia
 -----------------------------
 
 Step 01: Build
