@@ -9,10 +9,15 @@ Simple x64 bit operating system
 
 
 
+Operating System From Scratch
 -----------------------------
 
-Pre-Requisites 
+Step 01: A smallest "OS"
 ````````````````````````
+
+Let's begin with a simplest boot sector. You'll see how easy it is to get started!
+
+Here we go:
 
 + Install nasm_ the assembly compiler and bochs_ the emulator, VirtualBox, or Qemu
 
@@ -20,14 +25,15 @@ Pre-Requisites
 
       $ git clone https://github.com/Jyang772/HaleOS.git
 
-+ Run your smallest "OS" right now::
++ Build HaleOS right now::
 
       $ make
 
 
-`â€¹prev`_   `nextâ€º`_
+`‹prev`_   `next›`_
 
 .. _nasm: http://nasm.us/
 .. _bochs: http://bochs.sourceforge.net/
-.. _`â€¹prev`: https://github.com/yyu/osfs00
-.. _`nextâ€º`: https://github.com/yyu/osfs02
+.. _`‹prev`: 
+.. _`next›`: 
+
