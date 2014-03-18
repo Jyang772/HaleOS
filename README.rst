@@ -28,6 +28,8 @@ Here we go:
 + Build HaleOS right now::
 
       $ make
+      
++ LAWL ::
 
 
 `‹prev`_   `next›`_
