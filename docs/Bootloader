@@ -1,0 +1,7 @@
+This is a brief overview of how the bootloader works. 
+
+
+HaleOS uses a multi-stage bootloader. This is because bootloaders are limited to being 512 bytes in size, the maximum size of a boot sector. 
+
+
+Bios automatically loads the bootloader at memory address 0x07C0
