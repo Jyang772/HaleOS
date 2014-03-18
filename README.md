@@ -13,30 +13,22 @@ Operating System From <del>Scratch</del> Australia
 -----------------------------
 
 Step 01: Build
-````````````````````````
-
-Let's begin with a simplest boot sector. You'll see how easy it is to get started!
 
 Here we go:
 
 + Install nasm_ the assembly compiler and bochs_ the emulator, VirtualBox, or Qemu
 
 + Clone me ::
-
-      $ git clone https://github.com/Jyang772/HaleOS.git
-
+      
+     ` $ git clone https://github.com/Jyang772/HaleOS.git`
+     
 + Build HaleOS right now::
 
-      $ make
+      `$ make`
       
-+ LAWL ::
++ LAWL 
 
-      lol
-
-`‹prev`_   `next›`_
-
-.. _nasm: http://nasm.us/
-.. _bochs: http://bochs.sourceforge.net/
-.. _`‹prev`: 
-.. _`next›`: 
-
+       ` lol `
+     
+            
+[<prev](http://google.com) [next>](http://google.com)
