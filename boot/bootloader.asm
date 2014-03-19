@@ -168,15 +168,15 @@ PRINTMESSAGE:
 	push bp
 	mov bp, sp
 
-	push es
-	push si
-	push di
-	push ax
-	push cx
-	push dx
+	push es									;|  pusha |
+	push si									;| bp val |
+	push di									;| ret. ad|
+	push ax									;|    0   |
+	push cx									;|    0	  |
+	push dx									;|    msg |
 
-	mov ax, word[bp + 4]
-	mov bx, word[bp + 6]
+	mov ax, word[bp + 4]							;[bp+4] for last argument since [bp+2] holds return address from
+	mov bx, word[bp + 6]							;calling function PRINTMESSAGE
 	mov cx, word[bp + 8]
 
 	mov si, 0
