@@ -32,7 +32,7 @@ sti
 mov si, 0
 CLEARSCREEN:
 	mov byte[es:si], 0
-	mov byte[es:si + 1], 0x0a
+	mov byte[es:si + 1], 0x03			;Set all color attribute bytes to desired color
 
 	add si, 2
 	cmp si, 80 * 25 * 2
@@ -40,11 +40,11 @@ CLEARSCREEN:
 	jl CLEARSCREEN
 
 ; print welcome message
+
 push WELCOMEMESSAGE
 push 0
 push 0
 call PRINTMESSAGE
-add sp, 6
 
 ; print OS loading message
 push OSIMAGELOADINGMESSAGE
@@ -168,15 +168,16 @@ PRINTMESSAGE:
 	push bp
 	mov bp, sp
 
-	push es									;|  pusha |
-	push si									;| bp val |
-	push di									;| ret. ad|
-	push ax									;|    0   |
-	push cx									;|    0	  |
-	push dx									;|    msg |
+	push es
+	push si
+	push di
+	push ax
+	push cx
+	push dx
 
-	mov ax, word[bp + 4]							;[bp+4] for last argument since [bp+2] holds return address from
-	mov bx, word[bp + 6]							;calling function PRINTMESSAGE
+
+	mov ax, word[bp + 4]
+	mov bx, word[bp + 6]
 	mov cx, word[bp + 8]
 
 	mov si, 0
@@ -198,9 +199,10 @@ PRINTMESSAGE:
 		je SHOWMESSAGEEND					; If all characters of the message are printed, exit the loop.
 
 		mov byte[es:di], cl					; print a character pointed by CX register.
-		
-		add si, 1
-		add di, 2	
+		;mov byte[es:di+1], 01h		
+
+		add si, 1						;http://www.supernovah.com/Tutorials/BootSector4.php
+		add di, 2						;Color attribute comes one byte after character
 
 		jmp SHOWMESSAGE
 
