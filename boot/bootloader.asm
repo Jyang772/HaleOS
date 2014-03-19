@@ -41,40 +41,41 @@ CLEARSCREEN:
 
 ; print welcome message
 
-push WELCOMEMESSAGE
-push 0
-push 0
-call PRINTMESSAGE
+	push WELCOMEMESSAGE
+	push 0
+	push 0
+	call PRINTMESSAGE
+	add sp, 6
+	
+	; print OS loading message
+	push OSIMAGELOADINGMESSAGE
+	push 2
+	push 0
+	call PRINTMESSAGE
+	add sp, 6
 
-; print OS loading message
-push OSIMAGELOADINGMESSAGE
-push 2
-push 0
-call PRINTMESSAGE
-add sp, 6
+	; reset disk
+	mov ax, 0x00
+	mov dl, 0x00
 
-; reset disk
-mov ax, 0x00
-mov dl, 0x00
-
-int 0x13
-jc DISKREADERROR
+	int 0x13
+	jc DISKREADERROR
 
 
 
 ;================== 998 LEGACY DISK LOADER =======================
 
-; load OS image
-mov ch, 0x00
-mov cl, 0x02
-mov dh, 0x00
-mov dl, 0x00
+	; load OS image
+	mov ch, 0x00
+	mov cl, 0x02
+	mov dh, 0x00
+	mov dl, 0x00
 
-mov si, 0x1000
-mov es, si								; set the start address of OS image to 0x10000
-mov bx, 0x0000
-
-mov di, word[TOTALREADIMAGE]				
+	mov si, 0x1000
+	mov es, si								; set the start address of OS image to 0x10000
+	mov bx, 0x0000
+	
+	mov di, word[TOTALREADIMAGE]				
 LOADOSIMAGE:								;Print to screen without using interrupts
 	mov ah, 0x02							;Direct memory manipulation
 	mov al, 0x01
@@ -160,7 +161,7 @@ DISKREADERROR:
 	push 2
 	push 20
 	call PRINTMESSAGE
-
+	add sp, 6
 	jmp $
 
 ; show welcome message
@@ -168,12 +169,12 @@ PRINTMESSAGE:
 	push bp
 	mov bp, sp
 
-	push es
-	push si
-	push di
-	push ax
-	push cx
-	push dx
+	push es									;|  pusha |
+	push si									;| bp val |
+	push di									;| ret. ad|
+	push ax									;|    0   |
+	push cx									;|    0	  |
+	push dx									;|    msg |
 
 
 	mov ax, word[bp + 4]
