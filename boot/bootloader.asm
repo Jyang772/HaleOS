@@ -1,22 +1,23 @@
 ;Justin
 
-[ORG 0x00]
+[ORG 0x7c00]
 [BITS 16]
 
+;SECTION .text
 
-
-jmp START						; jump to START label. 
-
-
-TOTALSECTORCOUNT:
-	dw	0x02
-KERNEL32SECTORCOUNT:
-	dw	0x02
-
+jmp START			 
 START:
-	mov ax, 0x07c0
+
+
 	
-	mov ds, ax					; set DS(segment register) to the address of the bootloader. 
+cli
+mov ax, 0x07C0 ;set segment registers
+mov ds, ax
+mov es, ax
+mov fs, ax
+mov gs, ax
+
+						; set DS(segment register) to the address of the bootloader. 
 
 mov ax, 0xb800
 mov es, ax						; set ES(segment register) to the address of the video memory starting address. 
@@ -26,7 +27,7 @@ mov ax, 0x0000
 mov ss, ax
 mov sp, 0xfffe
 mov bp, 0xfffe
-
+sti
 ; clear the screen
 mov si, 0
 CLEARSCREEN:
@@ -59,6 +60,10 @@ mov dl, 0x00
 int 0x13
 jc DISKREADERROR
 
+
+
+;================== 998 LEGACY DISK LOADER =======================
+
 ; load OS image
 mov ch, 0x00
 mov cl, 0x02
@@ -81,7 +86,7 @@ LOADOSIMAGE:								;Print to screen without using interrupts
 	cmp di, 0
 	je FINISHLOADOSIMAGE
 
-	add si,	0x020 
+	add si,	0x020 							;(0x02 * 16 = 512 bytes)
 	mov es, si
 
 	add cl, 0x01
@@ -103,6 +108,37 @@ LOADOSIMAGE:								;Print to screen without using interrupts
 	mov ch, 0x00
 
 	jmp LOADOSIMAGE
+;============================ END 998 LEGACY DISK LOADER ===================================
+
+;======================== NEW 998 DISK LOADER ====================================
+	;mov si, 0x1000
+	;mov es, si								; set the start address of OS image to 0x10000
+	;mov bx, 0x0000
+	;mov dh, 5
+	;mov dl, 0
+	
+	;mov di, word[TOTALREADIMAGE]
+
+
+	;disk_load:
+	;push dx                       ;Store DX to recall later sectors requested 
+	                              ;(DH / DL used for INT 0x13 -0x02)
+	;mov ah, 0x02 		      ;Function code for reading 
+	;mov al, dh                    ;Read DH # of sectors
+	;mov ch, 0x00                  ;Select cylinder 0
+	;mov dh, 0x00                  ;Select head 0
+	;mov cl, 0x02                  ;Start from 2nd sector
+	
+	;int 0x13
+	;jc DISKREADERROR
+	
+	;pop dx
+	;cmp dh, al		      ;Compare the number of times read (AL contains actual sectors read count)
+	;jne DISKREADERROR	      ;to make sure all Dh sectors have been read
+;===================================================================================
+
+
+
 
 ; print OS loading message
 FINISHLOADOSIMAGE:
