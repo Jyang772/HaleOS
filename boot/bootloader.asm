@@ -25,8 +25,8 @@ mov es, ax						; set ES(segment register) to the address of the video memory st
 ; stack initialization
 mov ax, 0x0000
 mov ss, ax
-mov sp, 0xfffe
-mov bp, 0xfffe
+mov sp, 0xffff
+mov bp, 0xffff
 sti
 ; clear the screen
 mov si, 0
