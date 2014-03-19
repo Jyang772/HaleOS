@@ -185,7 +185,7 @@ PRINTMESSAGE:
 	add si, cx								; point to message address.
 
 	mov di, 0
-	imul bx, 160								;Number of bytes in a line (80)
+	imul bx, 160								;Width is 80 = 160 bytes(80)
 	add di, bx
 	imul ax, 2								;Multiply by number of bytes per character(2)
 	add di, ax								; point to screen memory.
