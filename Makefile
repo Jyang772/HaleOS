@@ -31,7 +31,7 @@ utility:
 	@echo ===  Build Complete  ===
 	@echo
 
-disk.img: boot/bootloader.bin 
+disk.img: boot/bootloader.bin kernel32/kernel_32.bin
 	@echo
 	@echo  === Build Disk.img ===
 	@echo

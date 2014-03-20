@@ -14,12 +14,12 @@ void copy_file(int dest_fd, int source_fd);
 int main(int argc, char** argv)             //Taking in arguments from Makefile
 {
 
-       int disk_image_fd, bootloader_fd, kernel32_fd, kernel64_fd;
+       int disk_image_fd, bootloader_fd, kernel_32_fd, kernel_64_fd;
        struct stat file_stat;                //http://pubs.opengroup.org/onlinepubs/009695399/functions/stat.html
        int file_size, bootloader_size, kernel_32_size;
        unsigned short total_sector_number, kernel_32_sector_number;
 
-       if(argc < 1)
+       if(argc < 3)
        {
            std::cout << "Error: bootloader.bin, kernel_32.bin and kernel_64.bin are needed.\n";
            exit(1);
@@ -53,6 +53,30 @@ int main(int argc, char** argv)             //Taking in arguments from Makefile
                bootloader_size = file_size;
 
                close(bootloader_fd);
+
+
+
+               /* read kernel_32.bin and copy it to disk.img */
+
+               kernel_32_fd = open(argv[2], O_RDONLY);
+               if (kernel_32_fd <= 0)
+               {
+                   printf("ERROR: cannot open kernel_32.bin.\n");
+
+                   exit(1);
+               }
+
+               copy_file(disk_image_fd, kernel_32_fd);
+
+               stat(argv[2], &file_stat);
+               file_size += file_stat.st_size;
+
+               /* add 0x00s to fit the filesize to times of 512 bytes */
+
+               fill_zero(disk_image_fd, &file_size);
+               kernel_32_size = file_size - bootloader_size;
+
+               close(kernel_32_fd);
 
 
         total_sector_number = file_size / 512;

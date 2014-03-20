@@ -151,8 +151,8 @@ FINISHLOADOSIMAGE:
 	call PRINTMESSAGE
 	add sp, 6
 
-	jmp $
-;jmp 0x1000:0x0000						; jump to OS image	
+	;jmp $
+jmp 0x1000:0x0000						; jump to OS image	
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ; FUNCTION
