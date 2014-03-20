@@ -57,9 +57,15 @@ int main(int argc, char** argv)             //Taking in arguments from Makefile
 
         total_sector_number = file_size / 512;
 
-        //lseek(disk_image_fd, 5, SEEK_SET);
-          //  write(disk_image_fd, &total_sector_number, 2);
-           // write(disk_image_fd, &kernel_32_sector_number, 2);
+
+        //lseek(disk_image_fd, 6, SEEK_SET);
+          // write(disk_image_fd, &total_sector_number, 2);
+          // write(disk_image_fd, &kernel_32_sector_number, 2);
+
+
+        //write(disk_image_fd, &test, 2);
+        //write(disk_image_fd, &test1, 2);
+
 
             //printf("%d\n", lawl);
             printf("TOTAL_SECTOR_NUMBER : %d\n", total_sector_number);

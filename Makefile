@@ -1,4 +1,12 @@
-all: Bootloader utility disk.img
+all: clean Bootloader utility disk.img
+
+
+
+clean:
+	make -C boot clean
+	make -C util clean
+	rm -f disk.img
+
 
 Bootloader:
 	@echo
@@ -36,8 +44,3 @@ disk.img: boot/bootloader.bin
 	@echo
 
 
-
-clean:
-	make -C boot clean
-	make -C util clean
-	rm -f disk.img
