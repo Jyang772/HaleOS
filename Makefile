@@ -1,4 +1,4 @@
-all: Bootloader utility  
+all: Bootloader utility disk.img
 
 Bootloader:
 	@echo
@@ -23,10 +23,21 @@ utility:
 	@echo ===  Build Complete  ===
 	@echo
 
+disk.img: boot/bootloader.bin 
+	@echo
+	@echo  === Build Disk.img ===
+	@echo
+	
+			./image_maker $^
+			
+
+	@echo
+	@echo ===  Build Complete  ===
+	@echo
+
 
 
 clean:
 	make -C boot clean
-
-	make -C utility clean
+	make -C util clean
 	rm -f disk.img

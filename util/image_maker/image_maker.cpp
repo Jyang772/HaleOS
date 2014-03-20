@@ -19,7 +19,7 @@ int main(int argc, char** argv)             //Taking in arguments from Makefile
        int file_size, bootloader_size, kernel_32_size;
        unsigned short total_sector_number, kernel_32_sector_number;
 
-       if(argc < 4)
+       if(argc < 1)
        {
            std::cout << "Error: bootloader.bin, kernel_32.bin and kernel_64.bin are needed.\n";
            exit(1);
@@ -43,16 +43,35 @@ int main(int argc, char** argv)             //Taking in arguments from Makefile
            exit(1);
        }
 
-       copy_file(disk_image_fd, bootloader_fd)
+       copy_file(disk_image_fd, bootloader_fd);
 
        /* add 0x00s to fit the filesize to 512 byte sectors */
                stat(argv[1], &file_stat);
                file_size = file_stat.st_size;
 
-               file_zero(disk_image_fd, &file_size);
+               fill_zero(disk_image_fd, &file_size);
                bootloader_size = file_size;
 
                close(bootloader_fd);
+
+
+        total_sector_number = file_size / 512;
+
+        //lseek(disk_image_fd, 5, SEEK_SET);
+          //  write(disk_image_fd, &total_sector_number, 2);
+           // write(disk_image_fd, &kernel_32_sector_number, 2);
+
+            //printf("%d\n", lawl);
+            printf("TOTAL_SECTOR_NUMBER : %d\n", total_sector_number);
+            printf("KERNEL_32_SECTOR_NUMBER : %d\n", kernel_32_sector_number);
+            //printf("KERNEL_64_SECTOR_NUMBER : %d\n", kernel_64_sector_number);
+
+
+        close(disk_image_fd);
+
+
+
+
 }
 
 

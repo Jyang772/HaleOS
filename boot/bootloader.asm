@@ -1,6 +1,7 @@
 ;Justin
 
 [ORG 0x7c00]
+
 [BITS 16]
 
 ;SECTION .text
@@ -16,6 +17,7 @@ mov ds, ax
 mov es, ax
 mov fs, ax
 mov gs, ax
+
 
 						; set DS(segment register) to the address of the bootloader. 
 
@@ -66,76 +68,76 @@ CLEARSCREEN:
 ;================== 998 LEGACY DISK LOADER =======================
 
 	; load OS image
-	mov ch, 0x00
-	mov cl, 0x02
-	mov dh, 0x00
-	mov dl, 0x00
+	;mov ch, 0x00
+	;mov cl, 0x02
+	;mov dh, 0x00
+	;mov dl, 0x00
 
-	mov si, 0x1000
-	mov es, si								; set the start address of OS image to 0x10000
-	mov bx, 0x0000
-	
-	mov di, word[TOTALREADIMAGE]				
-LOADOSIMAGE:								;Print to screen without using interrupts
-	mov ah, 0x02							;Direct memory manipulation
-	mov al, 0x01
-
-	int 0x13
-	jc DISKREADERROR
-
-	sub di, 1
-	cmp di, 0
-	je FINISHLOADOSIMAGE
-
-	add si,	0x020 							;(0x02 * 16 = 512 bytes)
-	mov es, si
-
-	add cl, 0x01
-	cmp cl, 19
-
-	jl LOADOSIMAGE
-	mov cl, 0x01
-
-	add dh, 0x01
-	cmp dh, 2
-
-	jl LOADOSIMAGE 
-	mov dh, 0x00
-
-	add ch, 0x01
-	cmp ch, 80
-
-	jl LOADOSIMAGE
-	mov ch, 0x00
-
-	jmp LOADOSIMAGE
-;============================ END 998 LEGACY DISK LOADER ===================================
-
-;======================== NEW 998 DISK LOADER ====================================
 	;mov si, 0x1000
 	;mov es, si								; set the start address of OS image to 0x10000
 	;mov bx, 0x0000
-	;mov dh, 5
-	;mov dl, 0
+	
+	;mov di, word[TOTALREADIMAGE]				
+;LOADOSIMAGE:								;Print to screen without using interrupts
+	;mov ah, 0x02							;Direct memory manipulation
+	;mov al, 0x01
+
+	;int 0x13
+	;jc DISKREADERROR
+
+	;sub di, 1
+	;cmp di, 0
+	;je FINISHLOADOSIMAGE
+
+	;add si,	0x020 							;(0x02 * 16 = 512 bytes)
+	;mov es, si
+
+	;add cl, 0x01
+	;cmp cl, 19
+
+	;jl LOADOSIMAGE
+	;mov cl, 0x01
+
+	;add dh, 0x01
+	;cmp dh, 2
+
+	;jl LOADOSIMAGE 
+	;mov dh, 0x00
+
+	;add ch, 0x01
+	;cmp ch, 80
+
+	;jl LOADOSIMAGE
+	;mov ch, 0x00
+
+	;jmp LOADOSIMAGE
+;============================ END 998 LEGACY DISK LOADER ===================================
+
+;======================== NEW 998 DISK LOADER ====================================
+	mov si, 0x1000
+	mov es, si								; set the start address of OS image to 0x10000
+	mov bx, 0x0000
+	mov dh, 5
+	mov dl, 0
 	
 	;mov di, word[TOTALREADIMAGE]
 
 
-	;disk_load:
-	;push dx                       ;Store DX to recall later sectors requested 
+	disk_load:
+	push dx                       ;Store DX to recall later sectors requested 
 	                              ;(DH / DL used for INT 0x13 -0x02)
-	;mov ah, 0x02 		      ;Function code for reading 
-	;mov al, dh                    ;Read DH # of sectors
-	;mov ch, 0x00                  ;Select cylinder 0
-	;mov dh, 0x00                  ;Select head 0
-	;mov cl, 0x02                  ;Start from 2nd sector
+	mov ah, 0x02 		      ;Function code for reading 
+	mov al, dh                    ;Read DH # of sectors
+	mov ch, 0x00                  ;Select cylinder 0
+	mov dh, 0x00                  ;Select head 0
+	mov cl, 0x02                  ;Start from 2nd sector
 	
-	;int 0x13
-	;jc DISKREADERROR
+	int 0x13
+	jc DISKREADERROR
 	
-	;pop dx
-	;cmp dh, al		      ;Compare the number of times read (AL contains actual sectors read count)
-	;jne DISKREADERROR	      ;to make sure all Dh sectors have been read
+	pop dx
+	cmp dh, al		      ;Compare the number of times read (AL contains actual sectors read count)
+	jne DISKREADERROR	      ;to make sure all Dh sectors have been read
 ;===================================================================================
 
 
@@ -149,7 +151,8 @@ FINISHLOADOSIMAGE:
 	call PRINTMESSAGE
 	add sp, 6
 
-jmp 0x1000:0x0000						; jump to OS image	
+	jmp $
+;jmp 0x1000:0x0000						; jump to OS image	
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ; FUNCTION
