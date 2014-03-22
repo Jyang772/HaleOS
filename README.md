@@ -2,7 +2,7 @@ HaleOS
 ======
 
 
-![ScreenShot](http://wiki.teamfortress.com/w/images/8/83/Yourpropertyjustgotdamagedbysaxtonhale.png?t=20111217071953)
+![ScreenShot](http://i.imgur.com/wnwVKKL.png)
 
 
 
