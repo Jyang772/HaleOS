@@ -28,7 +28,7 @@ int main(int argc, char** argv)             //Taking in arguments from Makefile
        /* Create disk.img */
 
        disk_image_fd = open("disk.img", O_RDWR | O_CREAT | O_TRUNC, 0644);
-       if(disk_image_fd <= 0)
+       if(disk_image_fd < 0)
        {
            std::cout << "ERROR: cannot create disk.img.\n";
            exit(1);
@@ -37,7 +37,7 @@ int main(int argc, char** argv)             //Taking in arguments from Makefile
        /* Read Bootloader.bin and copy it to disk.img */
 
        bootloader_fd = open(argv[1], O_RDONLY);
-       if(bootloader_fd <= 0)
+       if(bootloader_fd < 0)
        {
            std::cout << "ERROR: cannot open bootloader.bin.\n";
            exit(1);
@@ -59,7 +59,7 @@ int main(int argc, char** argv)             //Taking in arguments from Makefile
                /* read kernel_32.bin and copy it to disk.img */
 
                kernel_32_fd = open(argv[2], O_RDONLY);
-               if (kernel_32_fd <= 0)
+               if (kernel_32_fd < 0)
                {
                    printf("ERROR: cannot open kernel_32.bin.\n");
 

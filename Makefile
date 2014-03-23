@@ -5,6 +5,7 @@ all: clean Bootloader utility disk.img
 clean:
 	make -C boot clean
 	make -C util clean
+	rm -f image_maker
 	rm -f disk.img
 
 
