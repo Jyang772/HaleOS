@@ -114,7 +114,8 @@ CLEARSCREEN:
 ;============================ END 998 LEGACY DISK LOADER ===================================
 
 ;======================== NEW 998 DISK LOADER ====================================
-	mov si, 0x1000
+	mov si, 0x1000								;Since the disk image creator pads the files with 0s to make it fit into 512 byte sectors, we just load all necessary sectors
+										;right behind the boot sector. 
 	mov es, si								; set the start address of OS image to 0x10000
 	mov bx, 0x0000
 	mov dh, 5
