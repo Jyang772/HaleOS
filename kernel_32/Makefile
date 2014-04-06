@@ -1,4 +1,5 @@
 #Compilers
+NASM32 = nasm
 GCC32 = gcc -c -m32 -ffreestanding
 
 #Source files to be used:
