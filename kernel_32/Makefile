@@ -1,3 +1,10 @@
+#Compilers
+GCC32 = gcc -c -m32 -ffreestanding
+
+#Source files to be used:
+CSOURCEFILES = $(wildcard ../$(SOURCEDIRECTORY)/*.c) #All files with .c extentions. 
+
+
 
 OBJECTDIRECTORY = temp
 SOURCEDIR = source
@@ -29,7 +36,8 @@ kernel_32.bin:
 
 
 internal_dependency:
-
+	$(GCC32) -MM $(CSOURCEFILES) > dependency.dep
+	#Like -M but do not mention header files that are found in system header directories, nor header files that are included, directly or indirectly, from such a header. 
 
 clean:
 	rm -f kernel32.bin
