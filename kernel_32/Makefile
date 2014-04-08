@@ -1,6 +1,8 @@
 #Compilers
 NASM32 = nasm
 GCC32 = gcc -c -m32 -ffreestanding
+OBJCOPY32 = objcopy -j .text -j .data -j .rodata -j .bss -S -O binary
+
 
 #Source files to be used:
 CSOURCEFILES = $(wildcard ../$(SOURCEDIRECTORY)/*.c) #All files with .c extentions. 
@@ -25,6 +27,13 @@ dep:
 	@echo ===    Make Dependancy File    ===	#Create file from internal_dependency
 	make -C $(OBJECTDIRECTORY) -f ../Makefile internal_dependency
 	@echo === Dependancy Search Complete ===
+
+execute_internal_build: dep			#create dep file
+	make -C $(OBJECTDIRECTORY) -f ../Makefile kernel_32.elf
+
+$(OBJECTDIRECTORY)/kernel_32.elf.bin: execute_internal_build
+	$(OBJCOPY32) $(OBJECTDIRECTORY)/kernel_32.elf $@
+	
 
 
 kernel_32.bin:
