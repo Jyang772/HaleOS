@@ -10,7 +10,7 @@ CSOURCEFILES = $(wildcard ../$(SOURCEDIRECTORY)/*.c) #All files with .c extentio
 
 
 OBJECTDIRECTORY = temp
-SOURCEDIR = source
+SOURCEDIRECTORY = source
 
 all: prepare kernel_32.bin
 
@@ -38,7 +38,7 @@ $(OBJECTDIRECTORY)/kernel_32.elf.bin: execute_internal_build
 
 kernel_32.bin:
 	
-	nasm -f bin $(SOURCEDIR)/entry_point.s -o kernel_32.bin
+	nasm -f bin $(SOURCEDIRECTORY)/entry_point.s -o kernel_32.bin
 	
 
 
