@@ -28,7 +28,7 @@ dep:
 	make -C $(OBJECTDIRECTORY) -f ../Makefile internal_dependency
 	@echo === Dependancy Search Complete ===
 
-execute_internal_build: dep			#create dep file
+execute_internal_build: dep			#create kernel_32.elf file using dep
 	make -C $(OBJECTDIRECTORY) -f ../Makefile kernel_32.elf
 
 $(OBJECTDIRECTORY)/kernel_32.elf.bin: execute_internal_build
