@@ -36,7 +36,7 @@ $(OBJECTDIRECTORY)/kernel_32.elf.bin: execute_internal_build
 	
 
 
-kernel_32.bin:
+kernel_32.bin:		#Compile kernel_32.bin
 	
 	nasm -f bin $(SOURCEDIRECTORY)/entry_point.s -o kernel_32.bin
 	
